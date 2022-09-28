@@ -1,8 +1,18 @@
 <template>
-  <div></div>
+  <div>
+    <VueHeader />
+  </div>
 </template>
 
-<script></script>
+<script>
+import VueHeader from "./components/VueHeader.vue";
+
+export default {
+  components: {
+    VueHeader,
+  },
+};
+</script>
 
 <style>
 * {
