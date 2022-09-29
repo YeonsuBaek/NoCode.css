@@ -2,22 +2,43 @@
   <div class="colors">
     <header class="sub-header">
       <h2 class="sub-title">Colors</h2>
-      <button class="creating-button" type="button">create</button>
+      <button class="creating-button" type="button" @click="addColor">
+        create
+      </button>
     </header>
 
     <ul class="color-list">
-      <li class="color-item">
+      <li v-for="(color, index) in colors" :key="index" class="color-item">
         <button class="color-copy-button" type="button"></button>
-        <pre class="color-name" contenteditable="true" spellcheck="false">
-#3B5998</pre
-        >
+        <pre class="color-name" contenteditable="true" spellcheck="false">{{
+          color.code
+        }}</pre>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+import { ref } from "vue";
+
+export default {
+  setup() {
+    const color = ref("");
+    let colors = ref([]);
+
+    const addColor = () => {
+      colors.value.push({
+        code: "#FFFFFF",
+      });
+    };
+
+    return {
+      addColor,
+      color,
+      colors,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -49,7 +70,7 @@ export default {};
   margin-bottom: 4px;
   width: 160px;
   height: 160px;
-  background: #3b5998;
+  background: #ffffff;
   border-radius: 8px;
 }
 
