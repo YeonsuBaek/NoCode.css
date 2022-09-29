@@ -9,10 +9,19 @@
 
     <ul class="color-list">
       <li v-for="(color, index) in colors" :key="index" class="color-item">
-        <button class="color-copy-button" type="button"></button>
-        <pre class="color-name" contenteditable="true" spellcheck="false">{{
-          color.code
-        }}</pre>
+        <button
+          class="color-copy-button"
+          type="button"
+          :style="{ background: color.background }"
+        ></button>
+        <input
+          type="text"
+          maxlength="7"
+          class="color-name"
+          spellcheck="false"
+          value="#FFFFFF"
+          @input="onChange($event, index)"
+        />
       </li>
     </ul>
   </div>
@@ -24,16 +33,22 @@ import { ref } from "vue";
 export default {
   setup() {
     const color = ref("");
-    let colors = ref([]);
+    const colors = ref([]);
 
     const addColor = () => {
       colors.value.push({
         code: "#FFFFFF",
+        background: "#FFFFFF",
       });
+    };
+
+    const onChange = (event, index) => {
+      colors.value[index].background = event.target.value;
     };
 
     return {
       addColor,
+      onChange,
       color,
       colors,
     };
@@ -70,7 +85,6 @@ export default {
   margin-bottom: 4px;
   width: 160px;
   height: 160px;
-  background: #ffffff;
   border-radius: 8px;
 }
 
@@ -114,9 +128,11 @@ export default {
 }
 
 .color-name {
-  margin-left: 4px;
+  padding-left: 4px;
+  width: 160px;
   font-size: 18px;
   font-weight: 400;
+  border: none;
   outline: none;
 }
 </style>
